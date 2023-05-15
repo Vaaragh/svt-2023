@@ -47,4 +47,28 @@ public class User {
     @JoinColumn(name = "friend_id")
     private User parentFriend;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Banned> banList = new HashSet<Banned>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Comment> commentList = new HashSet<Comment>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "byUser")
+    private Set<FriendRequest> sentRequests = new HashSet<FriendRequest>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "forUser")
+    private Set<FriendRequest> receivedRequests = new HashSet<FriendRequest>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "byUser")
+    private Set<Report> sentReports = new HashSet<Report>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "forUser")
+    private Set<Report> receivedReports = new HashSet<Report>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<GroupRequest> groupRequestList = new HashSet<GroupRequest>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Reaction> reactionList = new HashSet<Reaction>();
+
 }

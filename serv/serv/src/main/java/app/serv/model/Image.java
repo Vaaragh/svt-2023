@@ -18,6 +18,9 @@ public class Image {
     private Integer id;
     @Column
     private String path;
+    //
+    //    Associations
+    //
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "image")
     private User user;
     @ManyToOne(fetch = FetchType.EAGER)

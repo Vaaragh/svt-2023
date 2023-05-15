@@ -29,7 +29,7 @@ public class Reaction {
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "commwnt_id")
+    @JoinColumn(name = "comment_id")
     private Comment comment;
 
     @ManyToOne(fetch = FetchType.EAGER)

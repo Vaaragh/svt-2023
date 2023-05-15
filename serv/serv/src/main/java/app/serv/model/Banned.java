@@ -23,12 +23,16 @@ public class Banned {
     //    Associations
     //
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "admin_id")
     private Administrator admin;
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "groupAdmin_id")
     private GroupAdmin groupAdmin;
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User user;
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "group_id")
     private Group group;
 
 
