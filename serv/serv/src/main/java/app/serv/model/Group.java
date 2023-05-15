@@ -6,9 +6,11 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "group")
+@Table(name = "groups")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -23,9 +25,23 @@ public class Group {
     private String description;
     @Column(nullable = false)
     private LocalDateTime creationDate;
+    @Column(nullable = false)
+    private Boolean isSuspended;
+    @Column
+    private String suspendedReason;
+    //
+    //    Associations
+    //
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
+    private Set<GroupAdmin> groupAdminList = new HashSet<GroupAdmin>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
+    private Set<Banned> banList = new HashSet<Banned>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
+    private Set<GroupRequest> groupRequestList = new HashSet<GroupRequest>();
 
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
+    private Set<Post> postList = new HashSet<Post>();
 
 }
