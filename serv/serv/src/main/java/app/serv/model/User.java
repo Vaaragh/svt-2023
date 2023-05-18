@@ -1,6 +1,7 @@
 package app.serv.model;
 
 
+import app.serv.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,6 +32,10 @@ public class User {
     private String lastName;
     @Column
     private LocalDateTime lastLogin;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Post> postList = new HashSet<Post>();
