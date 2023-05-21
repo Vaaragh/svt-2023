@@ -42,7 +42,7 @@ export class AuthService {
 
   changePassword(body) {
     console.log(JSON.stringify(body))
-    return this.apiService.put("http://localhost:8080/api/users/password-change", JSON.stringify(body))
+    return this.apiService.put(this.config.change_pass_url, JSON.stringify(body))
       .pipe(map(() => {
         console.log("Change success");
       }))

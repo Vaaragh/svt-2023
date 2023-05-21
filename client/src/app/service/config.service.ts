@@ -20,10 +20,10 @@ export class ConfigService {
     return this._whoami_url;
   }
 
-  private _change_pass_url = this._user_url + '/change-password';
+  private _change_pass_url = this._user_url + '/password-change';
 
   get change_pass_url(): string {
-    return this._whoami_url;
+    return this._change_pass_url;
   }
 
   private _users_url = this._user_url + '/all';
