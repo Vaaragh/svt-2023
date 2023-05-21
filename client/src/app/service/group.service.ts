@@ -26,6 +26,7 @@ export class GroupService {
     return this.http.get<any[]>(this.config.group_url + "/all");
   }
 
+
   delete(groupId){
     return this.apiService.delete(this.config.group_url+ "/?id=" + groupId)
     .pipe(map(() => {
@@ -36,6 +37,14 @@ export class GroupService {
   }
   add(group){
     return this.apiService.post(this.config.group_url + "/create", JSON.stringify(group))
+  }
+  edit(group){
+    return this.apiService.put(this.config.group_url + "/edit", JSON.stringify(group))
+    .pipe(map(() => {
+      console.log("Edit success");
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['/groups']);}); 
+    }))
   }
 
 }
