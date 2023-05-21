@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -77,6 +78,9 @@ public class UserController {
 
         // Kreiraj token za tog korisnika
         UserDetails user = (UserDetails) authentication.getPrincipal();
+        User userLogin = userService.findByUsername(user.getUsername());
+        userLogin.setLastLogin(LocalDateTime.now());
+        userService.save(userLogin);
         String jwt = tokenUtils.generateToken(user);
         int expiresIn = tokenUtils.getExpiredIn();
 

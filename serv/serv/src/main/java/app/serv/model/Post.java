@@ -30,17 +30,17 @@ public class Post {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
-    private Set<Comment> commentList = new HashSet<Comment>();
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+//    private Set<Comment> commentList = new HashSet<Comment>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
-    private Set<Reaction> reactionList = new HashSet<Reaction>();
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+//    private Set<Reaction> reactionList = new HashSet<Reaction>();
+//
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+//    private Set<Report> reportList = new HashSet<Report>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
-    private Set<Report> reportList = new HashSet<Report>();
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
-    private Set<Image> imageList = new HashSet<Image>();
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+//    private Set<Image> imageList = new HashSet<Image>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "group_id")
