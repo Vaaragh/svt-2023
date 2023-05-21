@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {ClubService} from '../service/club.service';
 import {UserService} from '../service/user.service';
 import {ConfigService} from '../service/config.service';
 
@@ -10,9 +9,7 @@ import {ConfigService} from '../service/config.service';
 })
 export class HomeComponent implements OnInit {
 
-  clubResponse = {};
   whoamIResponse = {};
-  allUserResponse = {};
 
   constructor(
     private config: ConfigService,

@@ -1,0 +1,31 @@
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Desription</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let group of groups">
+                <td>{{group.name}}</td>
+                <td>{{group.description}}</td>
+                <td>
+                    <button (click)="deleteGroup(group.id)">delete</button>
+                    <button (click)="editGroup(group.id)">edit</button>
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+<div *ngIf="editing">
+    <form (ngSubmit)="onSubmit()">
+        <label for="name_i" name="name_f">Name</label>
+        <input id="name_i" type="text">
+        <label for="desc_i" name="desc_f">Description</label>
+        <input id="desc_i" type="text">
+        <button type="submit">Save</button>
+    </form>
+</div>
+    
+</div>

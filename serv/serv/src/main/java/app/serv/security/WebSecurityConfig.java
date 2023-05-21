@@ -75,6 +75,9 @@ public class WebSecurityConfig {
                 .antMatchers(HttpMethod.POST, "/api/users/signup").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/users/all").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/users/password-change").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/groups/").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/groups/").permitAll()
+
                 // ukoliko ne zelimo da koristimo @PreAuthorize anotacije nad metodama kontrolera, moze se iskoristiti hasRole() metoda da se ogranici
                 // koji tip korisnika moze da pristupi odgovarajucoj ruti. Npr. ukoliko zelimo da definisemo da ruti 'admin' moze da pristupi
                 // samo korisnik koji ima rolu 'ADMIN', navodimo na sledeci nacin:
@@ -84,6 +87,7 @@ public class WebSecurityConfig {
                 .anyRequest().authenticated().and()
                 // za development svrhe ukljuci konfiguraciju za CORS iz WebConfig klase
                 .cors().and()
+
 
                 // umetni custom filter TokenAuthenticationFilter kako bi se vrsila provera JWT tokena umesto cistih korisnickog imena i lozinke (koje radi BasicAuthenticationFilter)
                 .addFilterBefore(new AuthenticationTokenFilter(userDetailsService(), tokenUtils), BasicAuthenticationFilter.class);

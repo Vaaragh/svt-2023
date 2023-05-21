@@ -17,14 +17,17 @@ import {AngularMaterialModule} from './angular-material/angular-material.module'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {ApiService} from './service/api.service';
-import {ClubService} from './service/club.service';
 import {AuthService} from './service/auth.service';
 import {UserService} from './service/user.service';
 import {ConfigService} from './service/config.service';
+import {GroupService} from './service/group.service';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { GroupListComponent } from './groups/group-list/group-list.component';
+import { GroupListContentComponent } from './groups/group-list-content/group-list-content.component';
+import { AddGroupComponent } from './groups/add-group/add-group.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,9 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     LoginComponent,
     SignUpComponent,
     ChangePasswordComponent,
+    GroupListComponent,
+    GroupListContentComponent,
+    AddGroupComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +58,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
       useClass: TokenInterceptor,
       multi: true
     },
-    ClubService,
+    GroupService,
     AuthService,
     ApiService,
     UserService,

@@ -32,10 +32,10 @@ export class ConfigService {
     return this._users_url;
   }
 
-  private _club_url = this._api_url + '/clubs';
+  private _group_url = this._api_url + '/groups';
 
-  get club_url(): string {
-    return this._club_url;
+  get group_url(): string {
+    return this._group_url;
   }
   
   //TODO: implementirati :)
