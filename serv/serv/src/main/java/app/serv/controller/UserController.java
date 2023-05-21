@@ -1,6 +1,7 @@
 package app.serv.controller;
 
 import app.serv.dto.JwtAuthenticationRequest;
+import app.serv.dto.PasswordDTO;
 import app.serv.dto.UserDTO;
 import app.serv.dto.UserTokenState;
 import app.serv.model.User;
@@ -16,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +27,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("api/users")
 public class UserController {
 
@@ -39,6 +42,9 @@ public class UserController {
 
     @Autowired
     TokenUtils tokenUtils;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     /* Ili preporucen nacin: Constructor Dependency Injection
     @Autowired
@@ -89,7 +95,7 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public List<User> loadAll() {
         return this.userService.findAll();
     }
@@ -99,4 +105,23 @@ public class UserController {
     public User user(Principal user) {
         return this.userService.findByUsername(user.getName());
     }
+
+    @PutMapping("/password-change")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public ResponseEntity<UserDTO> changePassword(@RequestBody @Validated PasswordDTO passwords) {
+        User createdUser = userService.findByUsername(passwords.getUsername());
+
+        if (encoder.matches(passwords.getCurrent(), createdUser.getPassword()) && passwords.getConfirm().equals(passwords.getPassword())){
+            createdUser.setPassword(encoder.encode(passwords.getPassword()));
+            userService.save(createdUser);
+        } else {
+
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        UserDTO userDTO = new UserDTO(createdUser);
+
+        return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
+
+    }
+
 }
