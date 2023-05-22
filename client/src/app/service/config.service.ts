@@ -37,6 +37,12 @@ export class ConfigService {
   get group_url(): string {
     return this._group_url;
   }
+
+  private _post_url = this._api_url + '/posts';
+
+  get post_url(): string {
+    return this._post_url;
+  }
   
   //TODO: implementirati :)
   private _signup_url = this._user_url + '/signup';

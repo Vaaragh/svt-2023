@@ -21,6 +21,7 @@ import {AuthService} from './service/auth.service';
 import {UserService} from './service/user.service';
 import {ConfigService} from './service/config.service';
 import {GroupService} from './service/group.service';
+import { PostService } from './service/post.service.service';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
@@ -28,6 +29,9 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { GroupListComponent } from './groups/group-list/group-list.component';
 import { GroupListContentComponent } from './groups/group-list-content/group-list-content.component';
 import { AddGroupComponent } from './groups/add-group/add-group.component';
+import { AddPostComponent } from './posts/add-post/add-post.component';
+import { PostListComponent } from './posts/post-list/post-list.component';
+import { PostListContentComponent } from './posts/post-list-content/post-list-content.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,9 @@ import { AddGroupComponent } from './groups/add-group/add-group.component';
     GroupListComponent,
     GroupListContentComponent,
     AddGroupComponent,
+    AddPostComponent,
+    PostListComponent,
+    PostListContentComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +70,7 @@ import { AddGroupComponent } from './groups/add-group/add-group.component';
     ApiService,
     UserService,
     ConfigService,
+    PostService
   ],
   bootstrap: [AppComponent]
 })
