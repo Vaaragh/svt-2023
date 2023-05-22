@@ -41,7 +41,7 @@ public class Group {
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
 //    private Set<GroupRequest> groupRequestList = new HashSet<GroupRequest>();
 //
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "group")
-    private Set<Post> postList = new HashSet<Post>();
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "group")
+//    private Set<Post> postList = new HashSet<Post>();
 
 }

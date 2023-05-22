@@ -26,9 +26,9 @@ public class Post {
     //
     //    Associations
     //
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
 //    private Set<Comment> commentList = new HashSet<Comment>();
@@ -42,7 +42,7 @@ public class Post {
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
 //    private Set<Image> imageList = new HashSet<Image>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "group_id")
-    private Group group;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "group_id")
+//    private Group group;
 }

@@ -37,8 +37,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-    private Set<Post> postList = new HashSet<Post>();
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+//    private Set<Post> postList = new HashSet<Post>();
 //    @OneToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "image_id", referencedColumnName = "id")
 //    private Image image;
