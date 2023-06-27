@@ -32,6 +32,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findById(Integer userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new NullPointerException("User not found with id: " + userId));
+    }
+
+    @Override
     public User createUser(UserDTO userDTO) {
 
         Optional<User> user = userRepository.findFirstByUsername(userDTO.getUsername());

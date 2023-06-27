@@ -15,8 +15,13 @@ import java.util.List;
 @RequestMapping("api/groups")
 public class GroupController {
 
-    @Autowired
+
     GroupService groupService;
+
+    @Autowired
+    public GroupController(GroupService groupService) {
+        this.groupService = groupService;
+    }
 
     @PostMapping("/create")
     public ResponseEntity<GroupDTO> create(@RequestBody @Validated GroupDTO newGroup){
@@ -29,8 +34,6 @@ public class GroupController {
         GroupDTO groupDTO = new GroupDTO(createdGroup);
         return new ResponseEntity<>(groupDTO, HttpStatus.CREATED);
     }
-    @DeleteMapping()
-    public void delete(@RequestParam Integer id){groupService.delete(id);}
 
     @GetMapping("/all")
     public List<Group> loadAll(){return this.groupService.findAll();}

@@ -1,5 +1,6 @@
 package app.serv.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,8 +33,9 @@ public class Group {
     //
     //    Associations
     //
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
-//    private Set<GroupAdmin> groupAdminList = new HashSet<GroupAdmin>();
+    @OneToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<GroupAdmin> groupAdminList = new HashSet<>();
 
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
 //    private Set<Banned> banList = new HashSet<Banned>();

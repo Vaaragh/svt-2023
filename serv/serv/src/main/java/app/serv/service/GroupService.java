@@ -17,5 +17,5 @@ public interface GroupService {
 
     void save(Group group);
 
-    void delete(Integer id);
+    void suspend(Integer groupId, Integer userId, String reason);
 }

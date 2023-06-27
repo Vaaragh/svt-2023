@@ -1,8 +1,12 @@
 package app.serv.service.implementation;
 
 import app.serv.dto.GroupDTO;
+import app.serv.enums.Role;
 import app.serv.model.Group;
+import app.serv.model.User;
 import app.serv.repository.GroupRepository;
+import app.serv.repository.GroupRequestRepository;
+import app.serv.repository.UserRepository;
 import app.serv.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,26 +17,27 @@ import java.util.Optional;
 
 @Service
 public class GroupServiceImpl implements GroupService {
+    GroupRepository groupRepository;
+    GroupRequestRepository reqRepository;
+    UserRepository userRepository;
 
     @Autowired
-    private GroupRepository groupRepository;
+    public GroupServiceImpl(GroupRepository groupRepository, GroupRequestRepository reqRepository, UserRepository userRepository) {
+        this.groupRepository = groupRepository;
+        this.reqRepository = reqRepository;
+        this.userRepository = userRepository;
+    }
 
     public Group findGroupById(Integer id){
         Optional<Group> group = groupRepository.findById(id);
-        if (!group.isEmpty()){
-            return group.get();
-        }
-        return null;
+        return group.orElse(null);
     }
 
 
     @Override
     public Group findGroupByName(String name) {
         Optional<Group> group = groupRepository.findFirstByName(name);
-        if (!group.isEmpty()){
-            return group.get();
-        }
-        return null;
+        return group.orElse(null);
     }
 
     @Override
@@ -62,7 +67,12 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void delete(Integer id) {
-        this.groupRepository.deleteById(id);
+    public void suspend(Integer groupId, Integer userId, String reason) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user !=null){
+            if (user.getRole() == Role.ADMIN){
+                groupRepository.suspendGroup(reason, groupId);
+            }
+        }
     }
 }

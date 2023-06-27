@@ -30,42 +30,29 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("api/users")
 public class UserController {
-
-    @Autowired
     UserService userService;
-
-    @Autowired
     UserDetailsService userDetailsService;
-
-    @Autowired
     AuthenticationManager authenticationManager;
-
-    @Autowired
     TokenUtils tokenUtils;
+    PasswordEncoder encoder;
 
     @Autowired
-    private PasswordEncoder encoder;
-
-    /* Ili preporucen nacin: Constructor Dependency Injection
-    @Autowired
-    public UserController(UserServiceImpl userService, AuthenticationManager authenticationManager,
-                          UserDetailsService userDetailsService, TokenUtils tokenUtils){
+    public UserController(UserService userService, UserDetailsService userDetailsService, AuthenticationManager authenticationManager, TokenUtils tokenUtils, PasswordEncoder encoder) {
         this.userService = userService;
-        this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
+        this.authenticationManager = authenticationManager;
         this.tokenUtils = tokenUtils;
+        this.encoder = encoder;
     }
-    */
+
     @PostMapping("/signup")
     public ResponseEntity<UserDTO> create(@RequestBody @Validated UserDTO newUser){
 
         User createdUser = userService.createUser(newUser);
-
         if(createdUser == null){
             return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
         }
         UserDTO userDTO = new UserDTO(createdUser);
-
         return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
     }
 
