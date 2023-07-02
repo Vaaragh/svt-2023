@@ -1,5 +1,6 @@
 package app.serv.model;
 
+import app.serv.repository.GroupRepository;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,17 +34,14 @@ public class Group {
     //
     //    Associations
     //
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JsonIgnore
-    private Set<GroupAdmin> groupAdminList = new HashSet<>();
-
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
-//    private Set<Banned> banList = new HashSet<Banned>();
-//
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "group")
-//    private Set<GroupRequest> groupRequestList = new HashSet<GroupRequest>();
-//
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "group")
-//    private Set<Post> postList = new HashSet<Post>();
+    private Set<User> groupAdminList = new HashSet<>();
+    @OneToMany
+    @JsonIgnore
+    private Set<Post> groupPostList = new HashSet<>();
+    @OneToMany
+    @JsonIgnore
+    private Set<GroupRequest> groupRequestList = new HashSet<>();
 
 }

@@ -17,7 +17,6 @@ public class PostDTO {
     private Integer id;
     @NotBlank
     private String content;
-
     private String username;
 
     private LocalDateTime created;

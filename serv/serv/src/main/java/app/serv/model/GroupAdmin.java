@@ -22,15 +22,9 @@ public class GroupAdmin {
     //
     //    Associations
     //
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @ManyToOne
     private User user;
-
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "groupAdmin")
-//    private Set<Banned> banList = new HashSet<Banned>();
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_id")
+    @ManyToOne
     private Group group;
 
 }
