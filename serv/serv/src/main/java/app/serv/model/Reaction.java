@@ -1,6 +1,7 @@
 package app.serv.model;
 
 import app.serv.enums.ReactionType;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,4 +26,10 @@ public class Reaction {
     private User by;
     @ManyToOne
     private Post post;
+
+    public Reaction(Integer id, ReactionType type, LocalDateTime timestamp) {
+        this.id = id;
+        this.type = type;
+        this.timestamp = timestamp;
+    }
 }

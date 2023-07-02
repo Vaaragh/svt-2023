@@ -7,11 +7,6 @@ import java.util.List;
 
 public interface PostService {
 
-
-    List<Post> findAllByUser(Integer userId);
-    List<Post> findAllforContent(String username);
-
-
     Post findPostById(Integer id);
     Post createPost(PostDTO postDTO);
     List<Post> findAll();
