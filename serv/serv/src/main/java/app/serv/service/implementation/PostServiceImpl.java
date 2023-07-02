@@ -50,16 +50,6 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> findAllByUser(Integer userId){
-        return null;
-    }
-
-    @Override
-    public  List<Post> findAllforContent(String username){
-        return null;
-    }
-
-    @Override
     public List<Post> findAll() {return this.postRepository.findAll();}
 
     @Override

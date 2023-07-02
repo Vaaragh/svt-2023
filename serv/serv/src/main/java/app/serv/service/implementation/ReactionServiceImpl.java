@@ -38,6 +38,10 @@ public class ReactionServiceImpl implements ReactionService {
         Optional<Reaction> found = reactionRepository.findByByAndPost(user, post);
         if (found.isPresent()) {
             reaction = found.get();
+            if (reaction.getType().toString().equals(dto.getReactionType())){
+                reactionRepository.delete(reaction);
+                return new ReactionDTO();
+            }
         }
 
         reaction.setBy(user);
