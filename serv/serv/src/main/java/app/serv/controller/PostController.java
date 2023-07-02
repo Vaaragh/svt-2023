@@ -15,26 +15,24 @@ import java.util.List;
 @RequestMapping("api/posts")
 public class PostController {
 
-    @Autowired
     PostService postService;
 
+    @Autowired
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
+
     @PostMapping("/create")
-    public ResponseEntity<PostDTO> create(@RequestBody @Validated PostDTO newPost){
-
-        Post createdPost = postService.createPost(newPost);
-
-        if(createdPost == null){
-            return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
-        }
-        PostDTO postDTO = new PostDTO(createdPost);
-        return new ResponseEntity<>(postDTO, HttpStatus.CREATED);
+    public ResponseEntity<PostDTO> create(@RequestBody @Validated PostDTO post){
+        Post createdPost = postService.createPost(post);
+        return new ResponseEntity<>(new PostDTO(createdPost), HttpStatus.CREATED);
     }
 
     @DeleteMapping()
     public void delete(@RequestParam Integer id){postService.delete(id);}
 
     @GetMapping("/all")
-    public List<Post> loadAll(){return this.postService.findAll();}
+    public List<PostDTO> loadAll(){return this.postService.findAllView();}
 
     @PutMapping("/edit")
     public ResponseEntity<PostDTO> edit(@RequestBody @Validated PostDTO editPost){

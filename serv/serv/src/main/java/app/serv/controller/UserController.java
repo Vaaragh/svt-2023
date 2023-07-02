@@ -47,7 +47,6 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity<UserDTO> create(@RequestBody @Validated UserDTO newUser){
-
         User createdUser = userService.createUser(newUser);
         if(createdUser == null){
             return new ResponseEntity<>(null, HttpStatus.NOT_ACCEPTABLE);
@@ -59,25 +58,15 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<UserTokenState> createAuthenticationToken(
             @RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletResponse response) {
-
-        // Ukoliko kredencijali nisu ispravni, logovanje nece biti uspesno, desice se
-        // AuthenticationException
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 authenticationRequest.getUsername(), authenticationRequest.getPassword()));
-
-        // Ukoliko je autentifikacija uspesna, ubaci korisnika u trenutni security
-        // kontekst
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        // Kreiraj token za tog korisnika
         UserDetails user = (UserDetails) authentication.getPrincipal();
         User userLogin = userService.findByUsername(user.getUsername());
         userLogin.setLastLogin(LocalDateTime.now());
         userService.save(userLogin);
         String jwt = tokenUtils.generateToken(user);
         int expiresIn = tokenUtils.getExpiredIn();
-
-        // Vrati token kao odgovor na uspesnu autentifikaciju
         return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
     }
 
@@ -87,28 +76,35 @@ public class UserController {
         return this.userService.findAll();
     }
 
-    @GetMapping("/whoami")
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    public User user(Principal user) {
-        return this.userService.findByUsername(user.getName());
-    }
+//    @GetMapping("/whoami")
+//    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+//    public User user(Principal user) {
+//        return this.userService.findByUsername(user.getName());
+//    }
 
     @PutMapping("/password-change")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity<UserDTO> changePassword(@RequestBody @Validated PasswordDTO passwords) {
-        User createdUser = userService.findByUsername(passwords.getUsername());
-
-        if (encoder.matches(passwords.getCurrent(), createdUser.getPassword()) && passwords.getConfirm().equals(passwords.getPassword())){
-            createdUser.setPassword(encoder.encode(passwords.getPassword()));
-            userService.save(createdUser);
-        } else {
-
+        UserDTO userDTO = userService.changePassword(passwords);
+        if (userDTO == null){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
-        UserDTO userDTO = new UserDTO(createdUser);
-
         return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
-
+    }
+    @GetMapping("/profile")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public ResponseEntity<UserDTO> showUser(){
+        UserDTO userDTO = new UserDTO(userService.findLoggedUser());
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
+    @PutMapping("/profile/edit")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public ResponseEntity<UserTokenState> editUser(@RequestBody @Validated UserDTO user) {
+        UserDTO userDTO = userService.editUser(user);
+        if (userDTO == null) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        return createAuthenticationToken(new JwtAuthenticationRequest(userDTO.getUsername(), user.getPassword()), null);
+    }
 }

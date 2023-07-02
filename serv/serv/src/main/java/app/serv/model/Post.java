@@ -1,5 +1,6 @@
 package app.serv.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,12 +24,12 @@ public class Post {
     private String content;
     @Column(nullable = false)
     private LocalDateTime creationDate;
-    //
-    //    Associations
-    //
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "user_id")
-//    private User user;
+
+    @Column(nullable = false)
+    private Boolean isDeleted;
+
+    @ManyToOne
+    private User user;
 
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
 //    private Set<Comment> commentList = new HashSet<Comment>();

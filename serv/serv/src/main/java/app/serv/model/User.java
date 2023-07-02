@@ -2,12 +2,14 @@ package app.serv.model;
 
 
 import app.serv.enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -36,8 +38,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-//    private Set<Post> postList = new HashSet<Post>();
+    @OneToMany
+//    @JsonIgnore
+    private Set<Post> postList = new HashSet<Post>();
 //    @OneToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "image_id", referencedColumnName = "id")
 //    private Image image;
@@ -61,6 +64,7 @@ public class User {
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "forUser")
 //    private Set<Report> receivedReports = new HashSet<Report>();
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+//    @JsonIgnore
 //    private Set<GroupRequest> groupRequestList = new HashSet<GroupRequest>();
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 //    private Set<Reaction> reactionList = new HashSet<Reaction>();
