@@ -11,7 +11,9 @@ public interface PostService {
     Post createPost(PostDTO postDTO);
     List<Post> findAll();
 
+
     List<PostDTO> findAllView();
+    List<PostDTO> findAllGroupView(Integer groupId);
 
     void save(Post post);
     void delete(Integer id);

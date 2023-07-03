@@ -6,7 +6,6 @@ import app.serv.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +32,7 @@ public class PostController {
     public void delete(@RequestParam Integer id){postService.delete(id);}
 
     @GetMapping("/all")
-    public List<PostDTO> loadAllUser(){return this.postService.findAllView();}
+    public List<PostDTO> loadAll(){return this.postService.findAllView();}
 
 
     @PutMapping("/edit")
@@ -44,6 +43,11 @@ public class PostController {
 
         PostDTO postDTO = new PostDTO(edit);
         return  new ResponseEntity<>(postDTO, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{groupId}/all")
+    public List<PostDTO> loadAllGroup(@PathVariable Integer groupId){
+        return this.postService.findAllGroupView(groupId);
     }
 
 }

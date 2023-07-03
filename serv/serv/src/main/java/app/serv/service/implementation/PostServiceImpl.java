@@ -57,12 +57,21 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<PostDTO> findAllView(){
         Set<Post> posts = postRepository.getAllExisting();
-        List<PostDTO> ret = new ArrayList<>();
-        for (Post p : posts){
-            PostDTO newP = new PostDTO(p);
-            newP.setReactions(getAllByPost(p));
-            ret.add(newP);
+        return getPostDTOS(posts);
+    }
 
+    @Override
+    public List<PostDTO> findAllGroupView(Integer groupId) {
+    Set<Post> posts = postRepository.getAllGroupExisting(groupId);
+        return getPostDTOS(posts);
+    }
+
+    private List<PostDTO> getPostDTOS(Set<Post> posts) {
+        List<PostDTO> ret = new ArrayList<>();
+        for (Post p: posts){
+            PostDTO newp = new PostDTO(p);
+            newp.setReactions(getAllByPost(p));
+            ret.add(newp);
         }
         return ret;
     }

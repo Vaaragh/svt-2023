@@ -17,5 +17,8 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     @Query("SELECT p FROM Post p JOIN p.user WHERE p.isDeleted = false")
     Set<Post> getAllExisting();
 
+    @Query("SELECT p FROM Post p JOIN p.group WHERE p.group.id= :groupId and p.isDeleted= false")
+    Set<Post> getAllGroupExisting(Integer groupId);
+
 
 }
