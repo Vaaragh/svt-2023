@@ -82,4 +82,6 @@ export class PostListComponent implements OnInit {
     obj1["reactionType"] = typeR    
     this.reactService.add(obj1)
   }
+
+  
 }

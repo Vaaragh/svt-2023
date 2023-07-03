@@ -1,0 +1,17 @@
+<div class="container">
+    <h1>Profile</h1>
+    <h2>{{user.firstName}} {{user.lastName}}</h2>
+    <h3>email: {{user.email}}</h3>
+    <h3>username: {{user.username}}</h3>
+    <button (click)="navigateTo()">Edit</button>
+</div>
+
+<div class="container">
+    <h1>Group List</h1>
+    <button (click)="navigateToEdit()">Create Group</button>
+    <div class="row">
+        <div class="col">
+            <app-group-list [groups]="groupList"></app-group-list>
+        </div>
+    </div>
+</div>

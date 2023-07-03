@@ -26,7 +26,6 @@ public class ReactionController {
 
     @PostMapping("/react")
     public ResponseEntity<ReactionDTO> create(@RequestBody ReactionDTO dto){
-        System.out.println("Obrisao");
         ReactionDTO reactionDTO = reactionService.react(dto, dto.getPost());
         if (reactionDTO == null) {
             return  new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

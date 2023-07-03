@@ -56,4 +56,10 @@ export class ConfigService {
     return this._signup_url;
   }
 
+  private _profile_url = this._user_url + '/profile';
+
+  get profile_url(): string {
+    return this._profile_url;
+  }
+
 }

@@ -23,6 +23,7 @@ export class GroupListComponent implements OnInit {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   notification: DisplayMessage;
   returnUrl: string;
+  
 
 
 

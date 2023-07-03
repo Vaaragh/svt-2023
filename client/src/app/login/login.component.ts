@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthService, UserService} from '../service';
+import {AuthService, ConfigService, UserService} from '../service';
 import {Subject} from 'rxjs/Subject';
 import {takeUntil} from 'rxjs/operators';
 
@@ -41,7 +41,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private config: ConfigService
   ) { }
 
   ngOnInit() {
@@ -73,6 +74,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.form.value)
       .subscribe(data => {
           this.userService.getMyInfo().subscribe();
+          console.log(this.returnUrl)
           this.router.navigate([this.returnUrl]);
         },
         error => {

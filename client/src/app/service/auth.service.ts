@@ -46,7 +46,13 @@ export class AuthService {
       .pipe(map(() => {
         console.log("Change success");
       }))
+  }
 
+  updateUser(body){
+    return this.apiService.put(this.config.profile_url + "/edit", JSON.stringify(body))
+    .pipe(map(() => {
+      console.log("Update success")
+    }))
   }
 
   signup(user) {

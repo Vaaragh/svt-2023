@@ -12,6 +12,7 @@ import app.serv.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,7 +64,13 @@ public class GroupController {
     }
 
     @GetMapping("/all")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public List<Group> loadAll(){return this.groupService.findAll();}
+
+    @GetMapping("/userGroups")
+    public Set<Group> getAllUserGroups(){
+        return this.groupService.getAllUserGroups(this.userService.findLoggedUser().getId());
+    }
 
 
     @GetMapping("/{groupId}/members")

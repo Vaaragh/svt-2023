@@ -26,6 +26,10 @@ export class GroupService {
     return this.http.get<any[]>(this.config.group_url + "/all");
   }
 
+  getUserGroups(): Observable<any[]>{
+    return this.http.get<any[]>(this.config.group_url + "/userGroups")
+  }
+
 
   delete(groupId){
     return this.apiService.delete(this.config.group_url+ "/?id=" + groupId)

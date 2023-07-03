@@ -29,7 +29,7 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     @Query(value = "SELECT p FROM Post p WHERE p.group.id = :groupId")
     Set<Post> getAllGroupPosts(Integer groupId);
 
-    @Query(value = "SELECT u FROM GroupRequest g JOIN g.user u WHERE g.approved = true AND g.user.id = :userId")
+    @Query("SELECT g FROM GroupRequest gr JOIN gr.group g WHERE gr.approved = true AND gr.user.id = :userId")
     Set<Group> getAllUserGroups(Integer userId);
 
     @Query(value = "SELECT r FROM Group g JOIN g.groupRequestList r WHERE r.approved = null AND g.id = :groupId")
