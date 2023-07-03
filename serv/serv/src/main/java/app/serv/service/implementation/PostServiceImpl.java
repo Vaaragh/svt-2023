@@ -2,28 +2,30 @@ package app.serv.service.implementation;
 
 import app.serv.dto.PostDTO;
 import app.serv.model.Post;
+import app.serv.model.Reaction;
 import app.serv.repository.PostRepository;
+import app.serv.repository.ReactionRepository;
 import app.serv.service.PostService;
+import app.serv.service.ReactionService;
 import app.serv.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PostServiceImpl implements PostService {
 
     PostRepository postRepository;
+    ReactionRepository reactionRepository;
     UserService userService;
-
     @Autowired
-    public PostServiceImpl(PostRepository postRepository, UserService userService) {
+    public PostServiceImpl(ReactionRepository reactionRepository, PostRepository postRepository, UserService userService) {
         this.postRepository = postRepository;
         this.userService = userService;
+        this.reactionRepository = reactionRepository;
     }
 
     @Override
@@ -54,10 +56,13 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDTO> findAllView(){
-        List<Post> posts = findAll();
+        Set<Post> posts = postRepository.getAllExisting();
         List<PostDTO> ret = new ArrayList<>();
         for (Post p : posts){
-            ret.add(new PostDTO(p));
+            PostDTO newP = new PostDTO(p);
+            newP.setReactions(getAllByPost(p));
+            ret.add(newP);
+
         }
         return ret;
     }
@@ -65,6 +70,18 @@ public class PostServiceImpl implements PostService {
     @Override
     public void save(Post post) {
         this.postRepository.save(post);
+    }
+
+    private Map<String, Integer> getAllByPost(Post post) {
+        Set<Reaction> reactions = this.reactionRepository.findByPost(post);
+        Map<String,Integer> ret = new HashMap<>();
+        ret.put("HEART", 0);
+        ret.put("LIKE", 0);
+        ret.put("DISLIKE", 0);
+        for (Reaction r : reactions){
+            ret.put(r.getType().toString(),ret.get(r.getType().toString())+1);
+        }
+        return ret;
     }
 
 }

@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class ReactionDTO {
-    private Integer id;
     @NotBlank
     private String reactionType;
     @NotBlank
@@ -21,7 +20,6 @@ public class ReactionDTO {
     private LocalDateTime timeStamp;
 
     public ReactionDTO(Reaction reaction) {
-        this.id = reaction.getId();
         this.userUsername = reaction.getBy().getUsername();
         this.reactionType = reaction.getType().toString();
         this.post = reaction.getPost().getId();

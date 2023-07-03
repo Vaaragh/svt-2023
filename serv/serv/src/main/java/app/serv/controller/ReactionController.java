@@ -7,10 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+import java.util.Set;
 
 @RestController
 @Transactional
@@ -25,7 +25,8 @@ public class ReactionController {
     }
 
     @PostMapping("/react")
-    public ResponseEntity<ReactionDTO> create(@RequestBody @Validated ReactionDTO dto){
+    public ResponseEntity<ReactionDTO> create(@RequestBody ReactionDTO dto){
+        System.out.println("Obrisao");
         ReactionDTO reactionDTO = reactionService.react(dto, dto.getPost());
         if (reactionDTO == null) {
             return  new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

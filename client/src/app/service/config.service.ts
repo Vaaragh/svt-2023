@@ -44,7 +44,12 @@ export class ConfigService {
     return this._post_url;
   }
   
-  //TODO: implementirati :)
+  private _react_url = this._api_url + '/reactions';
+
+  get react_url(): string {
+    return this._react_url
+  }
+
   private _signup_url = this._user_url + '/signup';
 
   get signup_url(): string {

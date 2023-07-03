@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -18,6 +20,7 @@ public class PostDTO {
     @NotBlank
     private String content;
     private String username;
+    private Map<String,Integer> reactions;
 
     private LocalDateTime created;
     public PostDTO(Post post){
@@ -25,6 +28,7 @@ public class PostDTO {
         this.content = post.getContent();
         this.username = post.getUser().getUsername();
         this.created = post.getCreationDate();
+        this.reactions = new HashMap<>();
     }
 
 }

@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
+import { UserService } from 'src/app/service';
+import { ReactService } from 'src/app/service/react.service';
 import { PostService } from 'src/app/service/post.service.service';
 
 interface DisplayMessage {
@@ -23,6 +25,7 @@ export class PostListComponent implements OnInit {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   notification: DisplayMessage;
   returnUrl: string;
+  user: string
 
 
 
@@ -30,15 +33,28 @@ export class PostListComponent implements OnInit {
     private postService: PostService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
+    private userService: UserService,
+    private reactService: ReactService,
+
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.user = this.userService.currentUser.username;
+  }
+
+  checkUser(username: string) {
+    if (username === this.user){
+      return true;
+    } else{
+      return false;
+    }
+  }
 
   deletePost(postId: number) {
-    console.log(postId)
     
     this.postService.delete(postId).subscribe((posts) => {this.postService.getPosts()});
   }
+
   editPost(postId, postContent) {
     this.editing = true;
     this.route.params
@@ -60,5 +76,10 @@ export class PostListComponent implements OnInit {
     });
   }
 
-
+  react(postId, typeR){
+    var obj1 = {}
+    obj1["post"] = postId
+    obj1["reactionType"] = typeR    
+    this.reactService.add(obj1)
+  }
 }

@@ -12,7 +12,9 @@ export class PostListContentComponent implements OnInit {
 
   constructor(
     private postService:PostService,
-    private router:Router
+    private router:Router,
+
+    
   ) { }
 
   ngOnInit() {
@@ -25,5 +27,7 @@ export class PostListContentComponent implements OnInit {
   navigateTo(){
     this.router.navigate(['posts/create'])
   }
+
+
 
 }

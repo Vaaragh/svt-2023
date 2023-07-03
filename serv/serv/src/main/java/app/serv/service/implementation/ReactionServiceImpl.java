@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ReactionServiceImpl implements ReactionService {
@@ -52,4 +52,5 @@ public class ReactionServiceImpl implements ReactionService {
 
         return new ReactionDTO(reaction);
     }
+
 }

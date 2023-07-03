@@ -24,6 +24,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -72,6 +73,11 @@ public class UserController {
         String jwt = tokenUtils.generateToken(user);
         int expiresIn = tokenUtils.getExpiredIn();
         return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
+    }
+    @GetMapping("/whoami")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    public User user(Principal user) {
+        return this.userService.findByUsername(user.getName());
     }
 
     @GetMapping("/all")

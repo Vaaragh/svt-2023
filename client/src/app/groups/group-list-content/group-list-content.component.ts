@@ -16,8 +16,7 @@ export class GroupListContentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getGroups()
-    console.log(this.groupList)   
+    this.getGroups() 
   }
 
   getGroups(){

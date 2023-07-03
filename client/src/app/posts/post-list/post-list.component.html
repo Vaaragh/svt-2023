@@ -8,10 +8,30 @@
         </thead>
         <tbody>
             <tr *ngFor="let post of posts">
+                <td>{{post.username}}</td>
                 <td>{{post.content}}</td>
                 <td>
-                    <button (click)="deletePost(post.id)">delete</button>
-                    <button (click)="editPost(post.id, post.content)">edit</button>
+                    <div class="heart_reac">
+                    <p>Hearts: {{post.reactions.HEART}}</p>
+                    </div>
+                    <div class="like_reac"></div>
+                    <p>Likes: {{post.reactions.LIKE}}</p>
+                    <div class="dislike_reac"></div>
+                    <p>Dislikes: {{post.reactions.DISLIKE}}</p>
+
+                </td>
+
+                <td>
+                    <div class="user_specific" *ngIf="checkUser(post.username)">
+                        <button (click)="deletePost(post.id)">delete</button>
+                        <button (click)="editPost(post.id, post.content)">edit</button>
+                    </div>
+                    <div class="non_specific">
+                        <button (click)="react(post.id, 'HEART')">heart</button>
+                        <button (click)="react(post.id, 'LIKE')">like</button>
+                        <button (click)="react(post.id, 'DISLIKE')">dislike</button>
+
+                    </div>
                 </td>
             </tr>
             
